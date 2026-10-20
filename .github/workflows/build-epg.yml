@@ -33,10 +33,15 @@ jobs:
       - name: Build combined EPG
         run: python build_epg.py
 
-      - name: Publish EPG
-        uses: peaceiris/actions-gh-pages@v4
+
+      - name: Publish EPG as release asset
+        uses: softprops/action-gh-release@v2
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_branch: gh-pages
-          publish_dir: ./public
-          force_orphan: true
+          tag_name: latest
+          name: Latest EPG
+          body: Automatically generated EPG file.
+          files: public/epg.xml.gz
+          make_latest: true
+          overwrite_files: true
+          fail_on_unmatched_files: true
+
